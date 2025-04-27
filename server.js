@@ -16,6 +16,8 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
 // Données des produits
+const categories = ['Tous', 'Électronique', 'Vêtements', 'Maison', 'Alimentation'];
+
 const products = [
   { id: 1, name: 'Smartphone', price: 599.99, image: 'product1.jpg', category: 'Électronique' },
   { id: 2, name: 'Ordinateur portable', price: 999.99, image: 'product2.jpg', category: 'Électronique' },
