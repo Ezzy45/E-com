@@ -1,0 +1,28 @@
+<section class="inscription-form">
+    <h2>Inscription à la formation : <%= formation %></h2>
+    <form action="/submit-inscription" method="POST">
+        <input type="hidden" name="formation" value="<%= formation %>">
+        
+        <div class="form-group">
+            <label for="nom">Nom complet</label>
+            <input type="text" id="nom" name="nom" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="telephone">Numéro de téléphone</label>
+            <input type="tel" id="telephone" name="telephone" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="motivation">Motivation</label>
+            <textarea id="motivation" name="motivation" rows="4" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn">Envoyer la demande d'inscription</button>
+    </form>
+</section>

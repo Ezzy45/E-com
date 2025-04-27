@@ -17,14 +17,48 @@ app.engine('html', require('ejs').renderFile);
 
 // Données des produits
 const products = [
-  { id: 1, name: 'Produit 1', price: 19.99, image: 'product1.jpg' },
-  { id: 2, name: 'Produit 2', price: 29.99, image: 'product2.jpg' },
-  { id: 3, name: 'Produit 3', price: 39.99, image: 'product3.jpg' }
+  { id: 1, name: 'Smartphone', price: 599.99, image: 'product1.jpg', category: 'Électronique' },
+  { id: 2, name: 'Ordinateur portable', price: 999.99, image: 'product2.jpg', category: 'Électronique' },
+  { id: 3, name: 'T-shirt', price: 29.99, image: 'product3.jpg', category: 'Vêtements' },
+  { id: 4, name: 'Jean', price: 59.99, image: 'product4.jpg', category: 'Vêtements' },
+  { id: 5, name: 'Lampe', price: 39.99, image: 'product5.jpg', category: 'Maison' },
+  { id: 6, name: 'Coussin', price: 19.99, image: 'product6.jpg', category: 'Maison' },
+  { id: 7, name: 'Fruits', price: 9.99, image: 'product7.jpg', category: 'Alimentation' },
+  { id: 8, name: 'Légumes', price: 7.99, image: 'product8.jpg', category: 'Alimentation' }
 ];
 
 // Routes
 app.get('/', (req, res) => {
   res.render('index', { products });
+});
+
+// Nouvelle route pour la page produits
+app.get('/products', (req, res) => {
+  const category = req.query.category || 'Tous';
+  const searchQuery = req.query.search || '';
+  
+  let filteredProducts = products;
+  
+  // Filtrage par catégorie
+  if (category !== 'Tous') {
+    filteredProducts = filteredProducts.filter(p => p.category === category);
+  }
+  
+  // Filtrage par recherche
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    filteredProducts = filteredProducts.filter(p => 
+      p.name.toLowerCase().includes(query) || 
+      p.category.toLowerCase().includes(query)
+    );
+  }
+  
+  res.render('products', { 
+    products: filteredProducts, 
+    categories, 
+    currentCategory: category,
+    searchQuery 
+  });
 });
 
 app.get('/checkout', (req, res) => {
