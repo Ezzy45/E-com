@@ -100,7 +100,7 @@ app.post('/submit-order', (req, res) => {
     }
   });
 
-  const mailOptions = {
+  const mailOptionsAdmin = {
     from: 'mamyyano@gmail.com',
     to: 'beavoguimamadiesaie@gmail.com', // Email de l'administrateur
     subject: 'Nouvelle commande reçue',
