@@ -122,7 +122,7 @@ app.post('/submit-order', (req, res) => {
     text: `
       Bonjour ${fullName},
       
-      Nous avons bien reçu votre message et vous remercions pour votre confiance.
+      Nous avons bien reçu votre commande et vous remercions pour votre confiance.
       
       Voici un récapitulatif de votre demande:
       Téléphone: ${phone}
