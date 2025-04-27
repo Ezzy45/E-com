@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contactez-nous</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="/images/logo.png" alt="Logo">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/products">Produits</a></li>
+          <li><a href="/contact" class="active">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contact-page">
+    <div class="container">
+      <h1>Contactez notre équipe</h1>
+      
+      <div class="contact-grid">
+        <!-- Section Informations -->
+        <section class="contact-info">
+          <div class="info-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Nos villes de service</h3>
+            <ul class="cities">
+              <% cities.forEach(city => { %>
+                <li><%= city %></li>
+              <% }); %>
+            </ul>
+          </div>
+          
+          <div class="info-card">
+            <i class="fas fa-truck"></i>
+            <h3>Mode de livraison</h3>
+            <p>Livraison rapide et sécurisée dans un délai de <strong><%= deliveryTime %></strong></p>
+            <p>Frais de port offerts à partir de 500 000 GNF d'achat</p>
+          </div>
+          
+          <div class="info-card">
+            <i class="fas fa-smile"></i>
+            <h3>Satisfaction client</h3>
+            <p><%= satisfaction %></p>
+            <p>Service client disponible 7j/7 de 8h à 20h</p>
+          </div>
+        </section>
+        
+        <!-- Formulaire de contact -->
+        <section class="contact-form">
+          <h2>Envoyez-nous un message</h2>
+          <form action="/send-message" method="POST">
+            <div class="form-group">
+              <label for="name">Nom complet</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Téléphone</label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="city">Ville</label>
+              <select id="city" name="city" required>
+                <option value="">Sélectionnez votre ville</option>
+                <% cities.forEach(city => { %>
+                  <option value="<%= city %>"><%= city %></option>
+                <% }); %>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Envoyer le message</button>
+          </form>
+        </section>
+      </div>
+      
+      <!-- Section FAQ -->
+      <section class="faq">
+        <h2>Questions fréquentes</h2>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Quels sont les délais de livraison ?<i class="fas fa-chevron-down"></i></h3>
+          <div class="faq-answer">
+            <p>Nous livrons sous <strong><%= deliveryTime %></strong> après confirmation de votre commande. Les délais peuvent varier selon votre localisation dans <%= cities.join(' ou ') %>.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Comment suivre ma commande ?<i class="fas fa-chevron-down"></i></h3>
+          <div class="faq-answer">
+            <p>Vous recevrez un SMS avec un lien de suivi dès que votre colis sera pris en charge par notre service de livraison.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Quels sont vos modes de paiement ?<i class="fas fa-chevron-down"></i></h3>
+          <div class="faq-answer">
+            <p>Nous acceptons les paiements par Orange Money, MTN Mobile Money, cartes bancaires et paiement à la livraison (uniquement à <%= cities.join(' et ') %>).</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Notre entreprise</h4>
+          <p>Leader du e-commerce en Guinée depuis 2025, nous nous engageons à vous offrir les meilleurs produits avec un service client exceptionnel.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Contacts</h4>
+          <p><i class="fas fa-phone"></i> +224 627 521 010</p>
+          <p><i class="fas fa-envelope"></i> contact@monsite.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> <%= cities.join(', ') %></p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Horaires</h4>
+          <p>Lundi - Vendredi: 8h - 20h</p>
+          <p>Samedi - Dimanche: 9h - 18h</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 MonSite. Tous droits réservés.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/contact.js"></script>
+</body>
+</html>

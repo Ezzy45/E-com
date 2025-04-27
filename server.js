@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,14 +20,18 @@ app.engine('html', require('ejs').renderFile);
 const categories = ['Tous', 'Électronique', 'Vêtements', 'Maison', 'Alimentation'];
 
 const products = [
-  { id: 1, name: 'Smartphone', price: 599.99, image: 'product1.jpg', category: 'Électronique' },
-  { id: 2, name: 'Ordinateur portable', price: 999.99, image: 'product2.jpg', category: 'Électronique' },
-  { id: 3, name: 'T-shirt', price: 29.99, image: 'product3.jpg', category: 'Vêtements' },
-  { id: 4, name: 'Jean', price: 59.99, image: 'product4.jpg', category: 'Vêtements' },
-  { id: 5, name: 'Lampe', price: 39.99, image: 'product5.jpg', category: 'Maison' },
-  { id: 6, name: 'Coussin', price: 19.99, image: 'product6.jpg', category: 'Maison' },
-  { id: 7, name: 'Fruits', price: 9.99, image: 'product7.jpg', category: 'Alimentation' },
-  { id: 8, name: 'Légumes', price: 7.99, image: 'product8.jpg', category: 'Alimentation' }
+  { id: 1, name: 'Smartphone', price: 900000, image: 'productE1.png', category: 'Électronique' },
+  { id: 2, name: 'Ordinateur portable', price: 3000000, image: 'productE2.png', category: 'Électronique' },
+  { id: 3, name: 'Arduino Mega', price: 250000, image: 'productE3.png', category: 'Électronique' },
+  { id: 4, name: 'Arduino Uno', price: 150000, image: 'productE4.png', category: 'Électronique' },
+  { id: 5, name: 'Disque SSD', price: 250000, image: 'productE5.png', category: 'Électronique' },
+  { id: 6, name: 'T-shirt', price: 70000, image: 'productV1.png', category: 'Vêtements' },
+  { id: 7, name: 'Jean', price: 80000, image: 'productV2.png', category: 'Vêtements' },
+  { id: 8, name: 'Lunnette', price: 150000, image: 'productV3.png', category: 'Vêtements' },
+  { id: 9, name: 'Lampe', price: 50000, image: 'productM1.png', category: 'Maison' },
+  { id: 10, name: 'Coussin', price: 70000, image: 'productM2.png', category: 'Maison' },
+  { id: 11, name: 'Fruits', price: 10000, image: 'productA1.png', category: 'Alimentation' },
+  { id: 12, name: 'Légumes', price: 5000, image: 'productA2.png', category: 'Alimentation' }
 ];
 
 // Routes
@@ -63,6 +68,15 @@ app.get('/products', (req, res) => {
   });
 });
 
+// Ajoutez cette route avant app.listen()
+app.get('/contact', (req, res) => {
+  res.render('contact', {
+    cities: ['Mamou', 'Conakry'],
+    deliveryTime: '24h à 72h',
+    satisfaction: '98% de clients satisfaits'
+  });
+});
+
 app.get('/checkout', (req, res) => {
   const productId = parseInt(req.query.productId);
   const product = products.find(p => p.id === productId);
@@ -81,8 +95,8 @@ app.post('/submit-order', (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'mamyyano@gmail.com', // Remplacez par votre email
-      pass: 'eotiuhjaqolfwmfb'      // Remplacez par votre mot de passe
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
     }
   });
 
@@ -100,16 +114,135 @@ app.post('/submit-order', (req, res) => {
     `
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
+  // Email de confirmation pour le client
+  const mailOptionsClient = {
+    from: 'mamyyano@gmail.com',
+    to: email,
+    subject: 'Merci pour votre message',
+    text: `
+      Bonjour ${fullName},
+      
+      Nous avons bien reçu votre message et vous remercions pour votre confiance.
+      
+      Voici un récapitulatif de votre demande:
+      Téléphone: ${phone}
+      Ville: ${city}
+      
+      Notre équipe vous répondra dans les plus brefs délais.
+      
+      Cordialement,
+      L'équipe de MamYano
+    `
+  };
+
+  // Envoi de l'email à l'administrateur
+  transporter.sendMail(mailOptionsAdmin, (error, info) => {
     if (error) {
-      console.log(error);
-      return res.send('Erreur lors de l\'envoi de la commande.');
+      console.log('Erreur envoi admin:', error);
+      return res.send('Erreur lors de l\'envoi du message.');
     }
-    res.send(`
-      <h2>Merci pour votre commande!</h2>
-      <p>Nous avons reçu votre demande et vous contacterons bientôt.</p>
-      <a href="/">Retour à l'accueil</a>
-    `);
+    
+    // Si l'email à l'admin est bien envoyé, on envoie la confirmation au client
+    transporter.sendMail(mailOptionsClient, (errorClient, infoClient) => {
+      if (errorClient) {
+        console.log('Erreur envoi client:', errorClient);
+        // On affiche quand même le succès car le message est reçu par l'admin
+        return res.send(`
+          <h2>Merci pour votre message, ${fullName}!</h2>
+          <p>Nous avons bien reçu votre demande mais une erreur est survenue avec l'email de confirmation.</p>
+          <p>Notre équipe vous contactera bientôt.</p>
+          <a href="/">Retour à l'accueil</a>
+        `);
+      }
+      
+      // Tout s'est bien passé
+      res.send(`
+        <h2>Merci pour votre commande, ${fullName}!</h2>
+        <p>Nous avons bien reçu votre commande et vous avons envoyé un email de confirmation.</p>
+        <p>Notre équipe vous répondra dans les plus brefs délais.</p>
+        <a href="/">Retour à l'accueil</a>
+      `);
+    });
+  });
+});
+
+// Ajoutez cette route avant app.listen()
+app.post('/send-message', (req, res) => {
+  const { name, email, phone, city, message } = req.body;
+  
+  // Configuration du transporteur email
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
+
+  // Email pour l'administrateur
+  const mailOptionsAdmin = {
+    from: 'mamyyano@gmail.com',
+    to: 'beavoguimamadiesaie@gmail.com',
+    subject: 'Nouveau message de contact',
+    text: `
+      Nouveau message reçu:
+      Nom complet: ${name}
+      Email: ${email}
+      Téléphone: ${phone}
+      Ville: ${city}
+      Message: ${message}
+    `
+  };
+
+  // Email de confirmation pour le client
+  const mailOptionsClient = {
+    from: 'mamyyano@gmail.com',
+    to: email,
+    subject: 'Merci pour votre message',
+    text: `
+      Bonjour ${name},
+      
+      Nous avons bien reçu votre message et vous remercions pour votre confiance.
+      
+      Voici un récapitulatif de votre demande:
+      Téléphone: ${phone}
+      Ville: ${city}
+      
+      Notre équipe vous répondra dans les plus brefs délais.
+      
+      Cordialement,
+      L'équipe de MamYano
+    `
+  };
+
+  // Envoi de l'email à l'administrateur
+  transporter.sendMail(mailOptionsAdmin, (error, info) => {
+    if (error) {
+      console.log('Erreur envoi admin:', error);
+      return res.send('Erreur lors de l\'envoi du message.');
+    }
+    
+    // Si l'email à l'admin est bien envoyé, on envoie la confirmation au client
+    transporter.sendMail(mailOptionsClient, (errorClient, infoClient) => {
+      if (errorClient) {
+        console.log('Erreur envoi client:', errorClient);
+        // On affiche quand même le succès car le message est reçu par l'admin
+        return res.send(`
+          <h2>Merci pour votre message, ${name}!</h2>
+          <p>Nous avons bien reçu votre demande mais une erreur est survenue avec l'email de confirmation.</p>
+          <p>Notre équipe vous contactera bientôt.</p>
+          <a href="/">Retour à l'accueil</a>
+        `);
+      }
+      
+      // Tout s'est bien passé
+      res.send(`
+        <h2>Merci pour votre message, ${name}!</h2>
+        <p>Nous avons bien reçu votre demande et vous avons envoyé un email de confirmation.</p>
+        <p>Notre équipe vous répondra dans les plus brefs délais.</p>
+        <a href="/">Retour à l'accueil</a>
+      `);
+    });
   });
 });
 

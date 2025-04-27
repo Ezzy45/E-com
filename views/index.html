@@ -11,13 +11,13 @@
   <header>
     <div class="container">
       <div class="logo">
-        <img src="/images/logo.png" alt="Logo">
+        <img src="/images/LogoICHaine.png" alt="Logo">
       </div>
       <nav>
         <ul>
           <li><a href="/">Accueil</a></li>
           <li><a href="/products">Produits</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -28,7 +28,7 @@
       <div class="container">
         <h1>Bienvenue dans notre boutique</h1>
         <p>Découvrez nos produits exclusifs</p>
-        <a href="#products" class="btn">Voir les produits</a>
+        <a href="/products" class="btn">Voir les produits</a>
       </div>
     </section>
 
@@ -43,7 +43,7 @@
               </div>
               <div class="product-info">
                 <h3><%= product.name %></h3>
-                <p class="price">$<%= product.price.toFixed(2) %></p>
+                <p class="price"><%= product.price.toFixed(2) %>GNF</p>
                 <a href="/checkout?productId=<%= product.id %>" class="btn">Acheter maintenant</a>
               </div>
             </div>

@@ -29,7 +29,7 @@
         <div class="product-summary">
           <h2><%= product.name %></h2>
           <img src="/images/<%= product.image %>" alt="<%= product.name %>">
-          <p class="price">$<%= product.price.toFixed(2) %></p>
+          <p class="price"><%= product.price.toFixed(2) %>GNF</p>
         </div>
         
         <form action="/submit-order" method="POST" class="checkout-form">
