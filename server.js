@@ -126,7 +126,6 @@ app.post('/submit-order', (req, res) => {
       
       Voici un récapitulatif de votre demande:
       Téléphone: ${phone}
-      Ville: ${city}
       
       Notre équipe vous répondra dans les plus brefs délais.
       
