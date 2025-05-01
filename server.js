@@ -130,7 +130,7 @@ app.post('/submit-order', (req, res) => {
       Notre équipe vous répondra dans les plus brefs délais.
       
       Cordialement,
-      L'équipe de MamYano
+      L'équipe itelvision
     `
   };
 
@@ -210,7 +210,7 @@ app.post('/send-message', (req, res) => {
       Notre équipe vous répondra dans les plus brefs délais.
       
       Cordialement,
-      L'équipe de MamYano
+      L'équipe itelvision
     `
   };
 
@@ -237,7 +237,7 @@ app.post('/send-message', (req, res) => {
       // Tout s'est bien passé
       res.send(`
         <h2>Merci pour votre message, ${name}!</h2>
-        <p>Nous avons bien reçu votre demande et vous avons envoyé un email de confirmation.</p>
+        <p>Nous avons bien reçu votre demande et nous avons envoyé un email de confirmation.</p>
         <p>Notre équipe vous répondra dans les plus brefs délais.</p>
         <a href="/">Retour à l'accueil</a>
       `);
