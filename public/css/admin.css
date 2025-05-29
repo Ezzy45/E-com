@@ -1,0 +1,277 @@
+/* === Base & Reset === */
+body {
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+}
+
+/* Stabilise l'affichage des images */
+.product-thumb {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Empêche le mouvement pendant les opérations */
+.table-responsive {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Fixe les dimensions du tableau */
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+th, td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* Dimensions fixes pour chaque colonne */
+th:nth-child(1), td:nth-child(1) { width: 12%; } /* Image */
+th:nth-child(2), td:nth-child(2) { width: 25%; } /* Nom */
+th:nth-child(3), td:nth-child(3) { width: 15%; } /* Prix */
+th:nth-child(4), td:nth-child(4) { width: 15%; } /* Catégorie */
+th:nth-child(5), td:nth-child(5) { width: 25%; } /* Description */
+th:nth-child(6), td:nth-child(6) { width: 8%; }  /* Actions */
+
+/* Style pour la description */
+td.description,
+th.description {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Styles pour les boutons */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-edit {
+  background-color: #3498db;
+  color: white;
+  border: none;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+}
+
+/* Animation de suppression */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+/* === Header Admin === */
+.admin-header {
+  background: #2c3e50;
+  color: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* === Contenu principal === */
+.admin-main {
+  padding: 40px 0;
+}
+
+/* === Formulaire d'ajout/modification === */
+.product-form {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.product-form h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Boutons */
+.btn {
+  display: inline-block;
+  background: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #2980b9;
+}
+
+.btn-secondary {
+  background: #95a5a6;
+}
+
+.btn-secondary:hover {
+  background: #7f8c8d;
+}
+
+/* Liste des produits */
+.product-list h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #2c3e50;
+  color: white;
+}
+
+tr:hover {
+  background: #f5f5f5;
+}
+
+.product-thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.btn-edit {
+  color: #3498db;
+}
+
+.btn-delete {
+  color: #e74c3c;
+}
+
+/* Tableau des statistiques */
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: #f9f9f9;
+}
+
+.stats-table th,
+.stats-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.stats-table th {
+  background-color: #3498db;
+  color: white;
+}
+
+#statsSection.hidden {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-header .container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  th, td {
+    padding: 10px 5px;
+    font-size: 14px;
+  }
+
+  /* Redimensionner les colonnes sur mobile */
+  th:nth-child(1), td:nth-child(1) { width: 20%; } /* Image */
+  th:nth-child(2), td:nth-child(2) { width: 30%; } /* Nom */
+  th:nth-child(3), td:nth-child(3) { width: 15%; } /* Prix */
+  th:nth-child(4), td:nth-child(4) { width: 15%; } /* Catégorie */
+  th:nth-child(5), td:nth-child(5) { width: 40%; } /* Description */
+  th:nth-child(6), td:nth-child(6) { width: 10%; } /* Actions */
+}
