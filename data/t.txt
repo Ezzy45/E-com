@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "name": "Smartphone",
+      "price": 599.99,
+      "category": "Électronique",
+      "image": "product1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Ordinateur portable",
+      "price": 999.99,
+      "category": "Électronique",
+      "image": "product2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "T-shirt",
+      "price": 29.99,
+      "category": "Vêtements",
+      "image": "product3.jpg"
+    }
+  ]
+  

@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "Smartphone",
+    "price": 700000,
+    "image": "productE1.png",
+    "category": "Électronique",
+    "description": "Un smartphone dernière génération avec écran HD et caméra 48MP."
+  },
+  {
+    "id": 2,
+    "name": "Ordinateur portable",
+    "price": 3000000,
+    "image": "productE2.png",
+    "category": "Électronique"
+  },
+  {
+    "id": 3,
+    "name": "Arduino Mega",
+    "price": 250000,
+    "image": "productE3.png",
+    "category": "Électronique"
+  },
+  {
+    "id": 5,
+    "name": "Disque SSD",
+    "price": 300000,
+    "image": "productE2.png",
+    "category": "Électronique"
+  },
+  {
+    "id": 6,
+    "name": "T-shirt",
+    "price": 70000,
+    "image": "productV1.png",
+    "category": "Vêtements"
+  },
+  {
+    "id": 7,
+    "name": "Jean",
+    "price": 80000,
+    "image": "productV2.png",
+    "category": "Vêtements"
+  },
+  {
+    "id": 8,
+    "name": "Lunnette",
+    "price": 150000,
+    "image": "productV3.png",
+    "category": "Vêtements"
+  },
+  {
+    "id": 9,
+    "name": "Lampe",
+    "price": 50000,
+    "image": "productM1.png",
+    "category": "Maison"
+  },
+  {
+    "id": 10,
+    "name": "Coussin",
+    "price": 70000,
+    "image": "productM2.png",
+    "category": "Maison"
+  },
+  {
+    "id": 11,
+    "name": "Fruits",
+    "price": 10000,
+    "image": "productA1.png",
+    "category": "Alimentation"
+  },
+  {
+    "id": 1748502068561,
+    "name": "Lunnettes",
+    "price": 5000,
+    "category": "Électronique",
+    "image": "productE2.png"
+  }
+]
