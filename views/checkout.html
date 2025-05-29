@@ -10,7 +10,7 @@
   <header>
     <div class="container">
       <div class="logo">
-        <img src="/images/LogoIChaine.png" alt="Logo">
+        <img src="/images/logo.png" alt="Logo">
       </div>
       <nav>
         <ul>
@@ -29,6 +29,7 @@
         <div class="product-summary">
           <h2><%= product.name %></h2>
           <img src="/images/<%= product.image %>" alt="<%= product.name %>">
+          <td><%= product.description %></td>
           <p class="price"><%= product.price.toFixed(2) %>GNF</p>
         </div>
         
@@ -36,8 +37,8 @@
           <input type="hidden" name="product" value="<%= product.name %>">
           
           <div class="form-group">
-            <label for="fullName">Nom complet</label>
-            <input type="text" id="fullName" name="fullName" required>
+            <label for="fullname">Nom complet</label>
+            <input type="text" id="fullname" name="fullname" required>
           </div>
           
           <div class="form-group">
