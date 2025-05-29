@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<header class="admin-header">
+  <div class="container">
+    <h1>Panel Admin</h1>
+    <nav>
+      <a href="/" class="btn">Voir le site</a>
+      <a href="/admin" class="btn">Actualiser</a>
+      <a href="/admin/logout" class="btn">Déconnexion</a>
+    </nav>
+  </div>
+</header>
+
+<main class="admin-main">
+  <div class="container">
+
+    <!-- Boutons pour afficher/masquer -->
+<div class="toggle-controls">
+   <!-- Bouton pour afficher/masquer les stats -->
+  <button id="toggleStatsBtn" class="btn btn-secondary">Masquer les statistiques</button>
+  <button id="toggleFormBtn" class="btn btn-secondary">Masquer le formulaire</button>
+  <button id="toggleListBtn" class="btn btn-secondary">Masquer la la liste des produits</button>
+</div>
+
+    
+
+    <!-- Section Statistiques -->
+    <section id="statsSection">
+      <h2>Statistiques</h2>
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th>Nombre de produits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% 
+             const categoriesCount = {};
+             products.forEach(p => {
+               if (!categoriesCount[p.category]) categoriesCount[p.category] = 0;
+               categoriesCount[p.category]++;
+             });
+           %>
+
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong><%= products.length %></strong></td>
+          </tr>
+
+          <% Object.keys(categoriesCount).forEach(category => { %>
+            <tr>
+              <td><%= category %></td>
+              <td><%= categoriesCount[category] %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Formulaire -->
+    <section class="product-form">
+      <h2>Ajouter/Modifier un Produit</h2>
+      <form id="productForm">
+        <input type="hidden" id="productId" name="id">
+        
+        <div class="form-group">
+          <label for="productName">Nom du produit</label>
+          <input type="text" id="productName" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="productPrice">Prix (GNF)</label>
+          <input type="number" id="productPrice" name="price" step="1000" min="0" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="productCategory">Catégorie</label>
+          <select id="productCategory" name="category" required>
+            <% categories.forEach(category => { %>
+              <option value="<%= category %>"><%= category %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="productDescription">Description du produit</label>
+          <textarea id="productDescription" name="description" rows="4" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="productImage">Image du produit</label>
+          <input type="file" id="productImage" name="image" accept="image/*">
+        </div>
+        
+        <button type="submit" class="btn">Enregistrer</button>
+        <button type="button" id="cancelEdit" class="btn btn-secondary">Annuler</button>
+      </form>
+    </section>
+
+    <!-- Liste des produits -->
+    <section class="product-list">
+      <h2>Liste des Produits</h2>
+      <% if (products.length === 0) { %>
+        <p>Aucun produit disponible</p>
+      <% } else { %>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Catégorie</th>
+                <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% products.forEach(product => { %>
+                <tr>
+                  <td><img src="/images/<%= product.image %>" alt="<%= product.name %>" class="product-thumb" onerror="this.src='/images/default.jpg'"></td>
+                  <td><%= product.name %></td>
+                  <td><%= Number(product.price).toLocaleString('fr-FR') %> GNF</td>
+                  <td><%= product.category %></td>
+                  <td>
+                    <details>
+                      <summary>Voir la description</summary>
+                      <%= product.description %>
+                    </details>
+                  </td>
+                  <td class="actions">
+                    <button class="btn-edit"
+                            data-id="<%= product.id %>"
+                            data-name="<%= product.name %>"
+                            data-price="<%= product.price %>"
+                            data-category="<%= product.category %>"
+                            data-image="<%= product.image %>">
+                      <i class="fas fa-edit"></i> Modifier
+                    </button>
+                    <button class="btn-delete" data-id="<%= product.id %>">
+                      <i class="fas fa-trash"></i> Supprimer
+                    </button>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </section>
+
+  </div>
+</main>
+
+<script src="/js/admin.js"></script>
+
+</body>
+</html>
