@@ -169,19 +169,31 @@ app.post('/admin/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     const adminData = fs.readFileSync(adminPath, 'utf8');
-    const [storedUser, storedHash] = adminData.split(':');
-    if (username === storedUser) {
-      const match = await bcrypt.compare(password, storedHash.trim());
-      if (match) {
-        req.session.isAuthenticated = true;
-        req.session.save(err => {
-          if (err) console.error('Session save error:', err);
-          return res.redirect('/admin');
-        });
-        return;
-      }
+    
+    // Lire toutes les lignes (chaque ligne = un utilisateur)
+    const users = {};
+    adminData.trim().split('\n').forEach(line => {
+      const [user, hash] = line.split(':');
+      users[user] = hash.trim();
+    });
+
+    if (!users[username]) {
+      return res.redirect('/admin/login?error=1');
     }
+
+    const match = await bcrypt.compare(password, users[username]);
+    if (match) {
+      req.session.isAuthenticated = true;
+      req.session.username = username; // Optionnel : garder le nom d'utilisateur
+      req.session.save(err => {
+        if (err) console.error('Session save error:', err);
+        return res.redirect('/admin');
+      });
+      return;
+    }
+
     res.redirect('/admin/login?error=1');
+
   } catch (err) {
     console.error('Login error:', err);
     res.redirect('/admin/login?error=1');
