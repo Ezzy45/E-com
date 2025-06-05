@@ -1,3 +1,23 @@
+const images = [
+    'images/hero-bg.png',
+    'images/Intellitech (1).png',
+    'images/Intellitech (2).png',
+    'images/Intellitech (3).png',
+    'images/Intellitech (4).png',
+    'images/Intellitech (5).png'
+];
+
+let currentIndex = 0;
+
+function changeBackgroundImage() {
+    const hero = document.querySelector('.hero');
+    hero.style.backgroundImage = `url('${images[currentIndex]}')`;
+    
+    currentIndex = (currentIndex + 1) % images.length;
+    
+    setTimeout(changeBackgroundImage, 30000);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Animation for form inputs
     const inputs = document.querySelectorAll('.form-group input, .form-group textarea');
@@ -29,4 +49,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    changeBackgroundImage();
 });
