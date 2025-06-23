@@ -301,7 +301,7 @@ app.post('/submit-order', (req, res) => {
   });*/
   // Exemple de configuration plus résiliente
 const transporter = nodemailer.createTransport({
-  host: 'mail.lws-hosting.com',
+  host: 'mail65.lwspanel.com',
   port: 587,
   secure: true, // true pour le port 465, false pour les autres ports
   auth: {
