@@ -366,7 +366,7 @@ app.post('/send-message', (req, res) => {
 
   const mailOptionsAdmin = {
     from: process.env.EMAIL_USER,
-    to: process.env.ADMIN_EMAIL',
+    to: process.env.ADMIN_EMAIL,
     subject: 'Nouveau message de contact',
     text: `
       Nouveau message reçu:
