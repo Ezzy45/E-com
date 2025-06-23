@@ -292,13 +292,25 @@ app.get('/admin/products-data', isAdmin, (req, res) => {
 // Routes pour les commandes et messages
 app.post('/submit-order', (req, res) => {
   const { fullName, email, phone, product, quantity } = req.body;
-  const transporter = nodemailer.createTransport({
+  /*const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     }
-  });
+  });*/
+  // Exemple de configuration plus résiliente
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, // true pour le port 465, false pour les autres ports
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: 'process.env.EMAIL_PASS'
+  },
+  connectionTimeout: 10000, // timeout de 10 secondes
+  socketTimeout: 10000
+});
 
   const mailOptionsAdmin = {
     from: process.env.EMAIL_USER,
