@@ -301,8 +301,8 @@ app.post('/submit-order', (req, res) => {
   });*/
   // Exemple de configuration plus résiliente
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
+  host: 'mail.lws-hosting.com',
+  port: 587,
   secure: true, // true pour le port 465, false pour les autres ports
   auth: {
     user: process.env.EMAIL_USER,
