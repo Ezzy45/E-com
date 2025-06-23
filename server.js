@@ -302,7 +302,7 @@ app.post('/submit-order', (req, res) => {
 
   const mailOptionsAdmin = {
     from: process.env.EMAIL_USER,
-    to: 'beavoguimamadiesaie@gmail.com',
+    to: process.env.ADMIN_EMAIL,
     subject: 'Nouvelle commande reçue',
     text: `
       Nouvelle commande:
