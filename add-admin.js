@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const adminPath = path.join(__dirname, 'admin.txt');
 
-// Utilisateur à ajouter eotiuhjaqolfwmfb
+// Utilisateur à ajouter eotiuhjaqolfwmfb mamyyano@gmail.com
 const newUsername = 'Yougui';
 const newPassword = 'Ezzy';
 
