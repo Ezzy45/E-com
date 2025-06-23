@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const adminPath = path.join(__dirname, 'admin.txt');
 
-// Utilisateur à ajouter
+// Utilisateur à ajouter eotiuhjaqolfwmfb
 const newUsername = 'Yougui';
 const newPassword = 'Ezzy';
 
