@@ -292,17 +292,26 @@ app.get('/admin/products-data', isAdmin, (req, res) => {
 // Routes pour les commandes et messages
 app.post('/submit-order', (req, res) => {
   const { fullName, email, phone, product, quantity } = req.body;
-  const transporter = nodemailer.createTransport({
+  /*const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     }
+  });*/
+  const transporter = nodemailer.createTransport({
+  host: 'mail.itelvision.site', // Ou smtp.lws-mail.com
+  port: 587, // ou 465 si tu veux SSL
+  secure: false, // true si port 465
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS+
+    }
   });
   
 
   const mailOptionsAdmin = {
-    from: process.env.EMAIL_USER,
+    from: `"Itelvision Contact" <${process.env.EMAIL_USER}>`,
     to: process.env.ADMIN_EMAIL,
     subject: 'Nouvelle commande reçue',
     text: `
@@ -316,7 +325,7 @@ app.post('/submit-order', (req, res) => {
   };
 
   const mailOptionsClient = {
-    from: process.env.EMAIL_USER,
+    from: `"Itelvision Contact" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: 'Confirmation de commande',
     text: `
@@ -356,16 +365,25 @@ app.post('/submit-order', (req, res) => {
 
 app.post('/send-message', (req, res) => {
   const { name, email, phone, city, message } = req.body;
-  const transporter = nodemailer.createTransport({
+  /*const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     }
+  });*/
+  const transporter = nodemailer.createTransport({
+  host: 'mail.itelvision.site', // Ou smtp.lws-mail.com
+  port: 587, // ou 465 si tu veux SSL
+  secure: false, // true si port 465
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+    }
   });
 
   const mailOptionsAdmin = {
-    from: process.env.EMAIL_USER,
+    from: `"Itelvision Contact" <${process.env.EMAIL_USER}>`,
     to: process.env.ADMIN_EMAIL,
     subject: 'Nouveau message de contact',
     text: `
@@ -379,7 +397,7 @@ app.post('/send-message', (req, res) => {
   };
 
   const mailOptionsClient = {
-    from: process.env.EMAIL_USER,
+    from: `"Itelvision Contact" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: 'Confirmation de message',
     text: `
@@ -390,7 +408,7 @@ app.post('/send-message', (req, res) => {
       Ville: ${city}
       Notre équipe vous répondra dans les plus brefs délais.
       Cordialement,
-      L'équipe de MamYano
+      L'équipe de ItelVision
     `
   };
 
